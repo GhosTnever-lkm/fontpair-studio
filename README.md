@@ -4,6 +4,8 @@
 
 FontPair Studio is a small, local-first typography playground. Load up to six TTF, OTF, WOFF, or WOFF2 files, compare a heading and body font, adjust the specimen, and export CSS variables and `@font-face` declarations.
 
+![FontPair Studio interface with a live type specimen and CSS export panel](assets/screenshot.png)
+
 ## Run it
 
 Requires Node.js 20 or newer. From this folder:

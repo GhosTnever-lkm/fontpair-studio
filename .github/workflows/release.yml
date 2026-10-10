@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Package static app
         run: |
-          zip -r fontpair-studio-${GITHUB_REF_NAME}.zip index.html app.js font-core.js styles.css icon.svg README.md LICENSE CHANGELOG.md
+          zip -r fontpair-studio-${GITHUB_REF_NAME}.zip index.html app.js font-core.js styles.css icon.svg assets/screenshot.png README.md LICENSE CHANGELOG.md
           sha256sum fontpair-studio-${GITHUB_REF_NAME}.zip > fontpair-studio-${GITHUB_REF_NAME}.sha256
       - uses: softprops/action-gh-release@v2
         with:

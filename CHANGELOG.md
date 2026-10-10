@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 — 2026-10-10
+
+- Add a project screenshot to the README and downloadable release.
+
 ## 1.0.0 — 2026-10-10
 
 - Initial release: local font shelf, live heading/body comparison, system font examples, adjustable specimen, and CSS theme export.
