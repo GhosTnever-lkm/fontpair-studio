@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2e9">
+  <meta name="description" content="Сравнивайте локальные шрифты рядом, настраивайте типографическую пару и экспортируйте CSS. Файлы остаются на устройстве.">
+  <title>FontPair Studio — типографика без загрузки файлов</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#top"><span class="brand-glyph">f<span>·</span></span><span>FontPair <b>Studio</b><small>TYPE EXPERIMENTS, KEPT LOCAL</small></span></a><div class="top-right"><span class="local-badge"><i></i> Шрифты не покидают устройство</span><a class="top-link" href="https://github.com/GhosTnever-lkm/fontpair-studio">GitHub ↗</a><button id="export-top" class="btn btn-dark" type="button">Экспорт CSS <span>↗</span></button></div></header>
+  <main id="top">
+    <section class="hero"><div><p class="eyebrow"><span>01</span> · TYPE PLAYGROUND</p><h1>Найди пару.<br><em>Почувствуй разницу.</em></h1><p class="hero-copy">Сравнивай свои шрифты в одном контексте, настраивай заголовок и основной текст, а затем забирай готовые CSS-переменные.</p></div><div class="hero-stamp" aria-hidden="true"><span>Aa</span><small>GOOD TYPE<br>MAKES ROOM</small><i>✳</i></div></section>
+    <section class="workspace">
+      <div class="left-side">
+        <div class="section-head"><div><p class="eyebrow">02 · YOUR FONT SHELF</p><h2>Полка шрифтов <span id="font-count" class="count">0</span></h2></div><label class="btn btn-outline upload-label" for="font-files">＋ Добавить шрифты</label><input id="font-files" type="file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" multiple hidden></div>
+        <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Добавить файлы шрифтов"><span class="drop-icon">↑</span><div><strong>Перетащи сюда файлы шрифтов</strong><small>TTF, OTF, WOFF или WOFF2 · остаются только в этой вкладке</small></div><span class="drop-action">Выбрать файлы</span></div>
+        <div id="font-shelf" class="font-shelf" aria-live="polite"></div>
+        <div id="empty-shelf" class="empty-shelf"><span class="empty-mark">Aa</span><strong>Твоя полка пока пуста</strong><p>Добавь локальные файлы и начни сравнивать. Можно также сначала поиграть с системными шрифтами ниже.</p><button id="load-presets" class="text-button" type="button">Показать системные примеры →</button></div>
+        <section class="specimen-card"><div class="specimen-top"><div><p class="eyebrow">03 · LIVE SPECIMEN</p><h2>Контекст решает</h2></div><div class="specimen-controls"><label>Размер <input id="size-control" type="range" min="24" max="88" value="52"><output id="size-value">52 px</output></label><label>Интерлиньяж <input id="leading-control" type="range" min="100" max="180" value="128"><output id="leading-value">1.28</output></label></div></div>
+          <div class="pair-controls"><label>Заголовок <select id="heading-font" aria-label="Шрифт заголовка"></select></label><span class="pair-symbol">+</span><label>Основной текст <select id="body-font" aria-label="Шрифт основного текста"></select></label></div>
+          <label class="sample-label" for="sample-text">Текст для проверки</label><textarea id="sample-text" rows="3" spellcheck="false">Sphinx of black quartz, judge my vow.
+Съешь же ещё этих мягких французских булок.</textarea>
+          <div id="specimen-preview" class="specimen-preview"><p class="sample-kicker">The quick brown fox / 0123456789</p><h3 id="preview-heading">Find your type of beautiful.</h3><p id="preview-body">Хорошая типографика помогает содержанию звучать ясно. Сравнивай характер, ритм и читаемость рядом — а не по памяти между разными вкладками.</p><div class="glyph-row" id="glyph-row">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn</div></div></section>
+      </div>
+      <aside class="right-side">
+        <section class="pair-card"><div class="pair-card-head"><div><p class="eyebrow">04 · PAIRING BOARD</p><h2>Пара в деле</h2></div><span class="live-tag"><i></i> LIVE</span></div><p class="pair-note">Заголовок и абзац используют выбранные начертания.</p><div class="pair-preview"><span class="pair-label">A SMALL FIELD GUIDE</span><h3 id="pair-heading">The shape of a sentence.</h3><p id="pair-body">Выбирай один голос для акцента, другой — для длинного чтения. Здесь видно, как шрифты работают вместе, когда рядом есть заголовок, цифры и несколько спокойных строк.</p><div class="pair-meta"><span>READING SAMPLE</span><span>№ 004 — 2025</span></div></div><div class="pair-foot"><div class="font-chip"><span class="chip-letter">H</span><div><small>HEADING</small><strong id="heading-name">System Serif</strong></div></div><div class="font-chip"><span class="chip-letter chip-alt">B</span><div><small>BODY</small><strong id="body-name">System Sans</strong></div></div></div></section>
+        <section class="export-card"><div><p class="eyebrow">05 · READY TO SHIP</p><h2>Собери CSS-тему</h2><p>Получишь @font-face для загруженных файлов и переменные для пары.</p></div><button id="export-button" class="btn btn-rust" type="button">Показать CSS <span>↗</span></button><div id="export-panel" class="export-panel" hidden><div class="export-toolbar"><span>font-theme.css</span><div><button class="text-button" id="copy-css" type="button">Копировать</button><button class="text-button" id="download-css" type="button">Скачать ↓</button></div></div><textarea id="css-output" readonly spellcheck="false" aria-label="Сгенерированный CSS"></textarea><p class="export-note">CSS ссылается на локальные файлы по их именам — добавь их рядом с таблицей стилей в проекте.</p></div><div id="toast" class="toast" role="status" aria-live="polite"></div></section>
+        <section class="privacy-card"><span>✳</span><div><strong>Private by design</strong><p>Ни аккаунтов, ни сервера, ни сетевых запросов. Файлы шрифтов доступны только текущей вкладке.</p></div></section>
+      </aside>
+    </section>
+    <footer><span>FontPair Studio <b>·</b> Local font playground</span><span>Сохраняй версии и проверяй лицензию шрифтов перед публикацией.</span></footer>
+  </main>
+</body>
+</html>
