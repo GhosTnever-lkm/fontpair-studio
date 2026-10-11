@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 - 2026-10-11
+
+- Complete the standard MIT license text, restoring the full warranty and liability disclaimer.
+
 ## 1.0.1 — 2026-10-10
 
 - Add a project screenshot to the README and downloadable release.
