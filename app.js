@@ -6,6 +6,7 @@ const shelf = $('font-shelf');
 const empty = $('empty-shelf');
 const fonts = new Map();
 const objectUrls = new Map();
+let pendingFontLoads = 0;
 let nextId = 1;
 let toastTimer;
 
@@ -72,13 +73,14 @@ async function addFiles(fileList) {
   const accepted = [...fileList].filter(file => detectFontFormat(file.name, file.type));
   if (!accepted.length) { announce('Выбери файл TTF, OTF, WOFF или WOFF2.'); return; }
   for (const file of accepted) {
-    if (fonts.size >= 6) { announce('На полке помещается до 6 локальных файлов.'); break; }
+    if (fonts.size + pendingFontLoads >= 6) { announce('На полке помещается до 6 локальных файлов.'); break; }
     const format = detectFontFormat(file.name, file.type);
     const id = `font-${nextId++}`;
     const url = URL.createObjectURL(file);
     const family = `FontPair_${id.replaceAll('-', '_')}`;
     const face = new FontFace(family, `url("${url}")`, { style: 'normal', weight: '100 900' });
     try {
+      pendingFontLoads += 1;
       await face.load();
       document.fonts.add(face);
       const raw = file.name.replace(/\.(ttf|otf|woff2?)$/i, '');
@@ -88,6 +90,8 @@ async function addFiles(fileList) {
     } catch {
       URL.revokeObjectURL(url);
       announce(`Не удалось прочитать ${file.name}.`);
+    } finally {
+      pendingFontLoads -= 1;
     }
   }
   renderShelf();

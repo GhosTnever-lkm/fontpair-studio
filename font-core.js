@@ -74,15 +74,24 @@ export function buildFontFaceCss(options) {
 export function buildThemeCss(fonts, settings = {}) {
   if (!Array.isArray(fonts)) throw new TypeError('fonts must be an array');
   if (!isPlain(settings)) settings = {};
+  const usedTokens = new Set();
   const entries = fonts.map(font => {
     if (!isPlain(font) || typeof font.family !== 'string' || !font.family.trim()) {
       throw new TypeError('each font needs a family');
     }
     const family = sanitizeFamilyName(font.family);
     const roles = Array.isArray(font.roles) ? font.roles : [font.role];
+    const baseToken = slugifyToken(font.token || family);
+    let token = baseToken;
+    let suffix = 2;
+    while (usedTokens.has(token)) {
+      const ending = `-${suffix++}`;
+      token = `${baseToken.slice(0, 64 - ending.length).replace(/-+$/g, '')}${ending}`;
+    }
+    usedTokens.add(token);
     return {
       family,
-      token: slugifyToken(font.token || family),
+      token,
       roles: new Set(roles.filter(role => role === 'heading' || role === 'body')),
       fileName: font.fileName,
       format: font.format,

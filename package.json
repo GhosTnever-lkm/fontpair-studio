@@ -1,6 +1,6 @@
 {
   "name": "fontpair-studio",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "description": "Local font preview and CSS type theme exporter.",
