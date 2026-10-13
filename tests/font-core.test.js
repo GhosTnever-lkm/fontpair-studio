@@ -57,3 +57,14 @@ test('keeps one font face and exports both roles when a font is selected twice',
   assert.match(css, /--font-pair-heading-family/);
   assert.match(css, /--font-pair-body-family/);
 });
+
+test('keeps distinct font families separate when their CSS tokens collide', () => {
+  const css = buildThemeCss([
+    { family: 'Open Sans', token: 'open sans', role: 'heading' },
+    { family: 'Open-Sans', token: 'open-sans', role: 'body' },
+  ]);
+  assert.match(css, /--font-pair-family-open-sans: "Open Sans", sans-serif;/);
+  assert.match(css, /--font-pair-family-open-sans-2: "Open-Sans", sans-serif;/);
+  assert.match(css, /--font-pair-heading-family: var\(--font-pair-family-open-sans\);/);
+  assert.match(css, /--font-pair-body-family: var\(--font-pair-family-open-sans-2\);/);
+});

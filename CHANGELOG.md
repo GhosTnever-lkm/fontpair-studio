@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.0.2 - 2026-10-11
+## 1.0.3 — 2026-10-13
+
+- Keep exported heading and body aliases distinct when different font names normalize to the same CSS token.
+- Reserve shelf capacity while fonts load so concurrent file selections cannot exceed the six-font limit.
+- Expand continuous integration to Node.js 20, 22, and 24.
+
+## 1.0.2 — 2026-10-11
 
 - Complete the standard MIT license text, restoring the full warranty and liability disclaimer.
 
