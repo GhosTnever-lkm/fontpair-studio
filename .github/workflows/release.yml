@@ -8,7 +8,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Package static app
         run: |
           zip -r fontpair-studio-${GITHUB_REF_NAME}.zip index.html app.js font-core.js styles.css icon.svg assets/screenshot.png README.md LICENSE CHANGELOG.md
